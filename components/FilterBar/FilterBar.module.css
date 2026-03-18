@@ -1,0 +1,31 @@
+/* components/FilterBar/FilterBar.module.css */
+.bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  border: 0.5px solid var(--color-border-secondary, #ccc);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  color: var(--color-text-secondary, #666);
+  background: transparent;
+}
+
+.chip:hover:not(.active) {
+  border-color: #e24b4a;
+  color: #e24b4a;
+}
+
+.chip.active {
+  background: #e24b4a;
+  border-color: #e24b4a;
+  color: #fff;
+  font-weight: 500;
+}

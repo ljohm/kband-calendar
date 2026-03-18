@@ -1,65 +1,107 @@
-import Image from "next/image";
+// app/page.tsx  (또는 components/ConcertCalendar/ConcertCalendar.tsx)
+"use client";
+import { useState } from "react";
+import type { Concert, Genre } from "@/types/concert";
+import { useConcerts } from "@/hooks/useConcerts";
 
-export default function Home() {
+import FilterBar from "@/components/FilterBar/FilterBar";
+import CalendarGrid from "@/components/CalendarGrid/CalendarGrid";
+import ConcertModal from "@/components/ConcertModal/ConcertModal";
+import UpcomingList from "@/components/UpcomingList/UpcomingList";
+import StatsPanel from "@/components/StatsPanel/StatsPanel";
+
+import styles from "./page.module.css";
+
+const MONTH_NAMES = [
+  "1월",
+  "2월",
+  "3월",
+  "4월",
+  "5월",
+  "6월",
+  "7월",
+  "8월",
+  "9월",
+  "10월",
+  "11월",
+  "12월",
+];
+
+export default function ConcertCalendarPage() {
+  const today = new Date();
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth()); // 0-indexed
+  const [activeGenre, setActiveGenre] = useState<Genre | "all">("all");
+  const [selected, setSelected] = useState<Concert | null>(null);
+
+  const { concerts, isLoading, error } = useConcerts({
+    year,
+    month: month + 1, // API는 1-indexed
+    genre: activeGenre,
+  });
+
+  const prevMonth = () => {
+    if (month === 0) {
+      setMonth(11);
+      setYear((y) => y - 1);
+    } else setMonth((m) => m - 1);
+  };
+
+  const nextMonth = () => {
+    if (month === 11) {
+      setMonth(0);
+      setYear((y) => y + 1);
+    } else setMonth((m) => m + 1);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className={styles.page}>
+      {/* ── 헤더 ── */}
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+          <span className={styles.logo}>KBAND</span>
+          <span className={styles.subtitle}>공연 캘린더</span>
+        </div>
+        <div className={styles.navControls}>
+          <button className={styles.navBtn} onClick={prevMonth}>
+            ←
+          </button>
+          <span className={styles.monthLabel}>
+            {year}년 {MONTH_NAMES[month]}
+          </span>
+          <button className={styles.navBtn} onClick={nextMonth}>
+            →
+          </button>
+        </div>
+      </div>
+
+      {/* ── 장르 필터 ── */}
+      <FilterBar activeGenre={activeGenre} onChange={setActiveGenre} />
+
+      {/* ── 로딩 / 에러 ── */}
+      {isLoading && <p className={styles.status}>불러오는 중...</p>}
+      {error && <p className={styles.error}>오류: {error}</p>}
+
+      {/* ── 캘린더 ── */}
+      {!isLoading && !error && (
+        <CalendarGrid
+          year={year}
+          month={month}
+          concerts={concerts}
+          onSelectConcert={setSelected}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      )}
+
+      {/* ── 하단 패널 ── */}
+      {!isLoading && !error && (
+        <div className={styles.sidePanel}>
+          <UpcomingList concerts={concerts} onSelect={setSelected} />
+          <StatsPanel concerts={concerts} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+
+      {/* ── 공연 상세 모달 ── */}
+      <ConcertModal concert={selected} onClose={() => setSelected(null)} />
+    </main>
   );
 }

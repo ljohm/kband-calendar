@@ -1,0 +1,45 @@
+/* components/StatsPanel/StatsPanel.module.css */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 180px;
+  min-width: 160px;
+}
+
+.card {
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-tertiary, #eee);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.label {
+  font-size: 11px;
+  color: var(--color-text-secondary, #888);
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--color-text-primary, #111);
+  line-height: 1.1;
+}
+
+.sub {
+  font-size: 11px;
+  color: var(--color-text-tertiary, #bbb);
+  margin-top: 2px;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .card {
+    flex: 1;
+  }
+}

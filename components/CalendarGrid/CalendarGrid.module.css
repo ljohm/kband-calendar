@@ -1,0 +1,126 @@
+/* components/CalendarGrid/CalendarGrid.module.css */
+.grid {
+  background: var(--color-background-primary, #fff);
+  border: 0.5px solid var(--color-border-tertiary, #eee);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-bottom: 0.5px solid var(--color-border-tertiary, #eee);
+}
+
+.weekday {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary, #888);
+  letter-spacing: 0.5px;
+}
+
+.sunday {
+  color: #e24b4a;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.cell {
+  border-right: 0.5px solid var(--color-border-tertiary, #eee);
+  border-bottom: 0.5px solid var(--color-border-tertiary, #eee);
+  padding: 6px;
+  min-height: 90px;
+}
+
+.cell:nth-child(7n) {
+  border-right: none;
+}
+
+.otherMonth .dayNum {
+  color: var(--color-text-tertiary, #bbb);
+}
+
+.sundayCell .dayNum {
+  color: #e24b4a;
+}
+
+.dayNum {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary, #888);
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  border-radius: 50%;
+}
+
+.today {
+  background: #e24b4a;
+  color: #fff !important;
+}
+
+.pill {
+  display: block;
+  width: 100%;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  border: none;
+  text-align: left;
+  font-family: inherit;
+  transition: opacity 0.1s;
+}
+
+.pill:hover {
+  opacity: 0.75;
+}
+
+.more {
+  font-size: 10px;
+  color: var(--color-text-tertiary, #bbb);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1px 4px;
+  font-family: inherit;
+}
+
+.more:hover {
+  color: #e24b4a;
+}
+
+@media (max-width: 600px) {
+  .cell {
+    min-height: 56px;
+    padding: 4px;
+  }
+
+  .pill {
+    /* 모바일: pill 숨기고 dot으로 대체 */
+    display: none;
+  }
+
+  .cell:has(.pill)::after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e24b4a;
+    margin: 2px auto 0;
+  }
+}
