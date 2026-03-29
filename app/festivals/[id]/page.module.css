@@ -1,0 +1,287 @@
+/* app/festivals/[id]/page.module.css */
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.backLink {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.15s;
+}
+
+.backLink:hover {
+  color: #7f77dd;
+}
+
+/* 헤더 2단 레이아웃 */
+.header {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.headerLeft {
+  flex-shrink: 0;
+  width: 240px;
+}
+
+.posterImg {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 0.5px solid var(--color-border-tertiary);
+}
+
+.posterFallback {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  border: 0.5px solid var(--color-border-tertiary);
+  background: #eeedfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posterIcon {
+  font-size: 48px;
+  color: #7f77dd;
+}
+
+.headerRight {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 배지 */
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.festivalBadge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #3c3489;
+  background: #eeedfe;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.soldOutBadge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #a32d2d;
+  background: #fcebeb;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+  margin-bottom: 1.25rem;
+}
+
+/* 상세 정보 목록 */
+.detailList {
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.detailRow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.detailValue {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.detailSub {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.highlight {
+  color: #534ab7;
+  font-weight: 500;
+}
+
+/* 예매 버튼 */
+.ticketBtn {
+  display: inline-block;
+  padding: 13px 32px;
+  background: #534ab7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.ticketBtn:hover {
+  background: #3c3489;
+}
+
+.ticketBtnDisabled {
+  display: inline-block;
+  padding: 13px 32px;
+  background: var(--color-background-secondary);
+  color: var(--color-text-tertiary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  cursor: not-allowed;
+}
+
+/* 출연 아티스트 섹션 */
+.artistSection {
+  border-top: 0.5px solid var(--color-border-tertiary);
+  padding-top: 2rem;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.artistCount {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+/* 에러 */
+.errorBox {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.errorTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.errorSub {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.backBtn {
+  display: inline-block;
+  font-size: 13px;
+  color: #534ab7;
+  text-decoration: none;
+  border: 0.5px solid #534ab7;
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.backBtn:hover {
+  background: #eeedfe;
+}
+
+/* 스켈레톤 */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 1rem 0;
+}
+
+.skeletonBox {
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonTitle {
+  height: 36px;
+  width: 55%;
+}
+.skeletonSub {
+  height: 20px;
+  width: 25%;
+}
+.skeletonGrid {
+  height: 260px;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 반응형 */
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+  }
+  .headerLeft {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 22px;
+  }
+
+  .ticketBtn,
+  .ticketBtnDisabled {
+    width: 100%;
+    text-align: center;
+  }
+}

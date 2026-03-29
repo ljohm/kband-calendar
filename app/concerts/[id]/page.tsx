@@ -2,8 +2,14 @@
 "use client";
 import { use } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useConcert } from "@/hooks/useConcert";
 import GenreTag from "@/components/GenreTag/GenreTag";
+import {
+  formatDateRange,
+  formatDuration,
+  formatTicketOpen,
+} from "@/lib/dateUtils";
 import styles from "./page.module.css";
 
 interface Props {
@@ -12,9 +18,16 @@ interface Props {
 
 export default function ConcertDetailPage({ params }: Props) {
   const { id } = use(params);
+  const searchParams = useSearchParams();
   const { concert, isLoading, error } = useConcert(id);
 
-  // ── 로딩 ──────────────────────────────────
+  // from 파라미터로 뒤로가기 URL 생성
+  // 예: from=2026-3 → /?year=2026&month=3
+  const from = searchParams.get("from");
+  const backUrl = from
+    ? "/?year=" + from.split("-")[0] + "&month=" + from.split("-")[1]
+    : "/";
+
   if (isLoading) {
     return (
       <main className={styles.page}>
@@ -27,7 +40,6 @@ export default function ConcertDetailPage({ params }: Props) {
     );
   }
 
-  // ── 에러 / 없는 공연 ──────────────────────
   if (error || !concert) {
     return (
       <main className={styles.page}>
@@ -36,7 +48,7 @@ export default function ConcertDetailPage({ params }: Props) {
           <p className={styles.errorSub}>
             {error ?? "존재하지 않거나 삭제된 공연입니다."}
           </p>
-          <Link href="/" className={styles.backBtn}>
+          <Link href={backUrl} className={styles.backBtn}>
             ← 캘린더로 돌아가기
           </Link>
         </div>
@@ -44,44 +56,37 @@ export default function ConcertDetailPage({ params }: Props) {
     );
   }
 
-  // ── 날짜/시간 포매팅 ──────────────────────
-  const [year, month, day] = concert.date.split("-");
-  const dateStr = `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
+  const dateStr = formatDateRange(concert.date, concert.date_end);
+  const duration = formatDuration(concert.date, concert.date_end);
   const timeStr = concert.start_time
-    ? ` ${concert.start_time.slice(0, 5)}`
+    ? " " + concert.start_time.slice(0, 5)
     : "";
-
   const ticketOpenStr = concert.ticket_open
-    ? new Date(concert.ticket_open).toLocaleString("ko-KR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
+    ? formatTicketOpen(concert.ticket_open)
     : null;
 
   const priceStr =
     concert.price_min && concert.price_max
-      ? `${concert.price_min.toLocaleString()}원 ~ ${concert.price_max.toLocaleString()}원`
+      ? concert.price_min.toLocaleString() +
+        "원 ~ " +
+        concert.price_max.toLocaleString() +
+        "원"
       : concert.price_min
-        ? `${concert.price_min.toLocaleString()}원~`
+        ? concert.price_min.toLocaleString() + "원~"
         : null;
 
   return (
     <main className={styles.page}>
-      {/* 뒤로가기 */}
-      <Link href="/" className={styles.backLink}>
+      <Link href={backUrl} className={styles.backLink}>
         ← 캘린더로 돌아가기
       </Link>
 
       <div className={styles.layout}>
-        {/* 왼쪽: 포스터 */}
         <aside className={styles.poster}>
           {concert.poster_url ? (
             <img
               src={concert.poster_url}
-              alt={`${concert.concert_title} 포스터`}
+              alt={concert.concert_title + " 포스터"}
               className={styles.posterImg}
             />
           ) : (
@@ -93,9 +98,7 @@ export default function ConcertDetailPage({ params }: Props) {
           )}
         </aside>
 
-        {/* 오른쪽: 정보 */}
         <section className={styles.info}>
-          {/* 헤더 */}
           <div className={styles.infoHeader}>
             <GenreTag genre={concert.genre} size="md" />
             {concert.is_sold_out && (
@@ -106,21 +109,20 @@ export default function ConcertDetailPage({ params }: Props) {
           <h1 className={styles.concertTitle}>{concert.concert_title}</h1>
           <p className={styles.bandName}>{concert.band_name}</p>
 
-          {/* 상세 정보 */}
           <div className={styles.detailList}>
-            <DetailRow label="날짜" value={`${dateStr}${timeStr}`} />
             <DetailRow
-              label="장소"
-              value={`${concert.venue}`}
-              sub={concert.city}
+              label="날짜"
+              value={dateStr + timeStr}
+              sub={duration ?? undefined}
             />
+            <DetailRow label="장소" value={concert.venue} sub={concert.city} />
             {concert.venue_address && (
               <DetailRow label="주소" value={concert.venue_address} />
             )}
             {concert.venue_capacity && (
               <DetailRow
                 label="수용인원"
-                value={`${concert.venue_capacity.toLocaleString()}명`}
+                value={concert.venue_capacity.toLocaleString() + "명"}
               />
             )}
             {priceStr && <DetailRow label="가격" value={priceStr} />}
@@ -129,7 +131,6 @@ export default function ConcertDetailPage({ params }: Props) {
             )}
           </div>
 
-          {/* 예매 버튼 */}
           <div className={styles.actions}>
             {concert.ticket_url ? (
               <a
@@ -147,7 +148,6 @@ export default function ConcertDetailPage({ params }: Props) {
             )}
           </div>
 
-          {/* 출처 */}
           <p className={styles.source}>
             출처: {concert.source === "manual" ? "직접 등록" : concert.source}
           </p>
@@ -157,7 +157,6 @@ export default function ConcertDetailPage({ params }: Props) {
   );
 }
 
-// ── 상세 정보 행 컴포넌트 ────────────────────
 function DetailRow({
   label,
   value,

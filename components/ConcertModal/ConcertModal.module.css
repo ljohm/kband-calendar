@@ -163,3 +163,126 @@
   background: var(--color-background-primary);
   border-color: var(--color-border-primary);
 }
+
+.festivalBadge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #3c3489;
+  background: #eeedfe;
+  padding: 3px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+/* ── 페스티벌 출연진 미리보기 ── */
+.artistPreview {
+  border-top: 0.5px solid var(--color-border-tertiary);
+  padding-top: 14px;
+  margin-bottom: 4px;
+}
+
+.artistPreviewTitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.artistCount {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.artistRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.artistChip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 52px;
+}
+
+.artistAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
+  border: 0.5px solid var(--color-border-tertiary);
+  flex-shrink: 0;
+}
+
+.artistAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artistName {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.artistTime {
+  font-size: 10px;
+  color: #7f77dd;
+  font-weight: 500;
+}
+
+.artistOverflow .artistAvatar {
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  border: 0.5px solid var(--color-border-tertiary);
+}
+
+/* 로딩 스켈레톤 */
+.artistSkeletonRow {
+  display: flex;
+  gap: 8px;
+}
+
+.artistSkeleton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-background-secondary);
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.artistEmpty {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  padding: 4px 0;
+}

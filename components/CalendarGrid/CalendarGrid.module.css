@@ -124,3 +124,26 @@
     margin: 2px auto 0;
   }
 }
+
+/* 다일 공연 pill */
+.multiDayPill {
+  border-radius: 3px 3px 3px 3px;
+  opacity: 0.92;
+}
+
+/* 첫날 이후 연속 pill — 왼쪽 테두리 제거로 이어지는 느낌 */
+.continuePill {
+  border-radius: 0;
+  opacity: 0.75;
+}
+
+/* 다일 공연 pill */
+.multiDay {
+  border-radius: 3px 0 0 3px; /* 시작일: 왼쪽만 둥글게 */
+  margin-right: -1px;
+}
+
+.multiDayContinue {
+  border-radius: 0; /* 중간/종료일: 직각 */
+  opacity: 0.75;
+}

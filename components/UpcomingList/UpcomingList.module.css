@@ -105,3 +105,39 @@
   flex-shrink: 0;
   align-self: center;
 }
+
+.festivalBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #3c3489;
+  background: #eeedfe;
+  padding: 2px 8px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+/* 다일 공연 날짜 범위 */
+.dayRange {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary, #111);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.dateEnd {
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+.dateEnd {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  line-height: 1;
+}

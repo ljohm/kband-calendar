@@ -68,7 +68,14 @@ export async function GET(req: NextRequest) {
     const from = `${y}-${String(m).padStart(2, "0")}-01`;
     const lastDay = new Date(y, m, 0).getDate();
     const to = `${y}-${String(m).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
-    query = query.gte("date", from).lte("date", to);
+
+    // 다일 공연 포함 조회:
+    // 시작일이 해당 월 이내 OR 종료일이 해당 월 이내 OR 공연 기간이 해당 월 전체를 포함
+    query = query.or(
+      `date.gte.${from},date.lte.${to},` +
+        `date_end.gte.${from},date_end.lte.${to},` +
+        `and(date.lte.${from},date_end.gte.${to})`,
+    );
   }
 
   if (genre && genre !== "all") {

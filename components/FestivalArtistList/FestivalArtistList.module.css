@@ -1,0 +1,115 @@
+/* components/FestivalArtistList/FestivalArtistList.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.empty {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.dateHeader {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.card:hover {
+  border-color: var(--color-border-secondary);
+  background: var(--color-background-secondary);
+}
+
+/* 아바타 */
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarInitial {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+}
+
+/* 정보 */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.bandName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.stage {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 500;
+  color: #e24b4a;
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}
