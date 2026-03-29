@@ -1,0 +1,474 @@
+/* app/admin/admin.module.css */
+
+/* ── 로그인 ── */
+.loginWrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background-tertiary);
+}
+
+.loginCard {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 360px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.loginLogo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e24b4a;
+  margin-bottom: 4px;
+}
+
+.loginTitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.75rem;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 11px 14px;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.loginError {
+  font-size: 12px;
+  color: #a32d2d;
+  text-align: center;
+}
+
+.loginBtn {
+  padding: 11px;
+  background: #e24b4a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.loginBtn:hover:not(:disabled) {
+  background: #a32d2d;
+}
+.loginBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── 레이아웃 ── */
+.adminWrap {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--color-background-primary);
+  border-right: 0.5px solid var(--color-border-tertiary);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebarTop {
+  padding: 0 1.25rem 1.5rem;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  margin-bottom: 1rem;
+}
+
+.sidebarLogo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e24b4a;
+}
+
+.sidebarSub {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.sidebarNav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0.75rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition:
+    background 0.1s,
+    color 0.1s;
+}
+
+.navItem:hover {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.navActive {
+  background: #fcebeb;
+  color: #a32d2d;
+  font-weight: 500;
+}
+
+.navIcon {
+  font-size: 14px;
+  width: 18px;
+}
+
+.logoutBtn {
+  margin: 1rem 0.75rem 0;
+  padding: 9px 12px;
+  background: none;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.1s;
+}
+
+.logoutBtn:hover {
+  border-color: #e24b4a;
+  color: #e24b4a;
+}
+
+.adminMain {
+  flex: 1;
+  padding: 2rem;
+  background: var(--color-background-tertiary);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* ── 공통 페이지 요소 ── */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.addBtn {
+  padding: 8px 18px;
+  background: #e24b4a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s;
+}
+
+.addBtn:hover {
+  background: #a32d2d;
+}
+
+/* ── 테이블 ── */
+.tableWrap {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  padding: 11px 16px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-secondary);
+  letter-spacing: 0.3px;
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+.table tr:hover td {
+  background: var(--color-background-secondary);
+}
+
+.editBtn {
+  padding: 5px 12px;
+  background: none;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  margin-right: 6px;
+  transition: all 0.1s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.editBtn:hover {
+  border-color: #378add;
+  color: #185fa5;
+}
+
+.deleteBtn {
+  padding: 5px 12px;
+  background: none;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  transition: all 0.1s;
+}
+
+.deleteBtn:hover {
+  border-color: #e24b4a;
+  color: #a32d2d;
+}
+
+.emptyRow td {
+  text-align: center;
+  color: var(--color-text-tertiary);
+  padding: 2.5rem;
+}
+
+/* ── 폼 ── */
+.formCard {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  padding: 1.75rem;
+  max-width: 680px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formGroupFull {
+  grid-column: 1 / -1;
+}
+
+.formLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.formRequired {
+  color: #e24b4a;
+  margin-left: 2px;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  padding: 9px 12px;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  transition: border-color 0.15s;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #e24b4a;
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 0.5px solid var(--color-border-tertiary);
+}
+
+.submitBtn {
+  padding: 10px 24px;
+  background: #e24b4a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #a32d2d;
+}
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  padding: 10px 20px;
+  background: none;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.1s;
+}
+
+.cancelBtn:hover {
+  border-color: var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+
+.formError {
+  font-size: 12px;
+  color: #a32d2d;
+  margin-top: 1rem;
+}
+
+.formSuccess {
+  font-size: 12px;
+  color: #0f6e56;
+  margin-top: 1rem;
+}
+
+/* ── 대시보드 통계 카드 ── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+.statValue {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+.statSub {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+/* ── 배지 ── */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.badgeFestival {
+  background: #eeedfe;
+  color: #3c3489;
+}
+.badgeConcert {
+  background: #fcebeb;
+  color: #a32d2d;
+}
+.badgeSoldOut {
+  background: #f1efe8;
+  color: #444441;
+}
